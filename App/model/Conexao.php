@@ -31,7 +31,7 @@ class Conexao{
                 echo "<script>console.log('conectado com o banco de dados')</script>";
             }catch(PDOException $ex){
                 echo "Erro na conexao".$ex->getMessage();
-
+               
             }
         endif;
         return self::$instancesql;

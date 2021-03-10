@@ -22,10 +22,11 @@ CrudPHP
 <?php if($_SESSION['mostra']=='ferrou'): echo "<div style='background-color:red' class='testeoverview off'>Erro ao cadastrar no banco de dados</div>"; endif;?>
 
     <form action="\crudphp\App\controlers\cadastrabd.php" method="POST" class="formcadastra">
+    <h1>Pagina de cadastro</h1>
     <label for="nomecamp">Nome</label></br>
-    <input type="text" name="nomecamp" /></br></br>
+    <input type="text" name="nomecamp" maxlength="13"/></br></br>
     <label for="telefonform">Telefone</label></br>
-    <input type="int" name="telefonform"/></br></br>
+    <input type="number" name="telefonform"/></br></br>
     <label for="cidadeform">Cidade</label></br>
     <input type="text" name="cidadeform"/></br></br>
    <!--<select class="selc">

@@ -24,6 +24,7 @@ class ProdutoDao{
                 else:
                     return "erro";
                 endif;
+                $stmt=null;
             
            
         }
@@ -36,14 +37,57 @@ class ProdutoDao{
         if($stmt->rowCount() > 0):
             $resultado=$stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $resultado;
+        else: return [];
         endif;
+        $stmt=null;
         
     }
-    public function update(){
+    public function update(Produto $p){
+        $query="update lista set nome=?, numero=?, cidade=? where id = ? ";
+        $conection=Conexao::getConn()->prepare($query);
+        $conection->bindValue(1,$p->getNome());
+        $conection->bindValue(2,$p->getTelefone());
+        $conection->bindValue(3,$p->getCidade());
+        $conection->bindValue(4,$p->getId());
+
+        if($conection->execute()){
+            return 'sucesso';
+        }else{
+            return 'erro';
+        }
+        $conection=null;
+    }
+    public function delete($id){
+        $query="DELETE FROM lista where id= ?";
+        $conection=Conexao::getConn()->prepare($query);
+        $conection->bindValue(1,$id);
+        if($conection->execute()){
+            return "Sucesso";
+
+        }
+        else{
+            return 'Erro';
+        }
 
     }
-    public function delete(){
-        
+    public function search($busca){
+        $query="select * from lista where nome like ? or numero like ?";
+        $conection=Conexao::getConn()->prepare($query);
+        $conection->bindValue(1,"%$busca%");
+        $conection->bindValue(2,"%$busca%");
+        $conection->execute();
+
+        if($conection->rowCount() > 0):
+            $result=$conection->fetchAll(\PDO::FETCH_ASSOC);
+            return $result;
+        else:
+            return [];
+        endif;
     }
 }
+
+
+
+
+
 ?>
